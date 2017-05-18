@@ -10,7 +10,7 @@ turtle=turtle
 turtle.ht()
 
 #Velocidad 1 min 10 max
-turtle.speed(1)
+turtle.speed(9)
 
 #abrir el file a leer y llamarlo f
 f=open("/Users/rafaella/Documents/Interfaz VLI/probando.txt","r")
@@ -32,7 +32,7 @@ for count in range(len(s)):
     out.extend(eval(x)(pt,posx,posy,turtle)) #esta es la funcion que llama a la libreria
     out.extend(noescribir(turtle.xcor(),turtle.ycor(),turtle.xcor()+0.2*pt,turtle.ycor(),turtle))
 
-    posx=turtle.xcor()+0.2*pt
+    posx=turtle.xcor()
     posy=turtle.ycor()
 
 print out

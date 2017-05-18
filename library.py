@@ -29,15 +29,18 @@ def circulo(xinicial,yinicial,angi,angsum,r,turtle):
     s=0
     lista=[]
     turtle.goto(xinicial,yinicial)
-    anguloConstante = pi*angi/180
-    xc=xinicial-r*cos(anguloConstante)
-    yc=yinicial-r*sin(anguloConstante)
+    ang= pi*angi/180
+    xc=xinicial-r*cos(ang)
+    yc=yinicial-r*sin(ang)
     turtle.pendown()
 
     while s <=1:
-        turtle.goto(xc+r*cos(anguloConstante+s*pi*angsum/180),yc+r*sin(anguloConstante+s*pi*angsum/180))
+        turtle.goto(xc+r*cos(ang+s*pi*angsum/180),yc+r*sin(ang+s*pi*angsum/180))
         lista.extend((turtle.xcor(),turtle.ycor(),1))
         s+=0.02
+
+    turtle.penup()
+
     return lista
 
 def space(pt,posx,posy,turtle):
@@ -49,8 +52,8 @@ def space(pt,posx,posy,turtle):
 
     lista.extend(noescribir(posx,posy,posx+w,posy,turtle))
     #turtle.goto(posx+w,posy)
-    return lista
     print 'space'
+    return lista
 
 def backslash(pt,posx,posy,turtle):
     turtle.penup()
@@ -58,8 +61,8 @@ def backslash(pt,posx,posy,turtle):
 
     lista.extend(noescribir(posx,posy,-250-0.2*pt,posy-1.2*pt,turtle))#regresa al inicio de linea
     #turtle.goto(-250-0.2*pt,posy-1.2*pt)
-    return lista
     print 'enter'
+    return lista
 
 def A(pt,posx,posy,turtle):
     lamb=0.65
@@ -126,24 +129,58 @@ def A(pt,posx,posy,turtle):
     print 'A'
     return lista
 
-def B(pt,posx,posy,turtle): #no esta terminado
-    lamb=0.75
+def B(pt,posx,posy,turtle):
+    lamb=0.5
     turtle.penup()
     l=pt
     w=lamb*pt
     r=pt/4
+    lista=[]
 
-    turtle.goto(posx,posy-l)
+    lista.extend(noescribir(posx,posy,posx,posy-l,turtle))#va a la base
+    lista.extend(linea(posx,posy-l,posx,posy,turtle))#sube
+    lista.extend(linea(posx,posy,posx+(w/4),posy,turtle))#avanza un poquito
+    lista.extend(circulo(posx+(w/4),posy,90,-180,r,turtle))#primer semicriculo
+    lista.extend(linea(posx+(w/4),posy-(l/2),posx+(w/2),posy-(l/2),turtle))
+    lista.extend(circulo(posx+(w/2),posy-(l/2),90,-180,r,turtle))#segundo semicirculo
+    lista.extend(linea(posx+(w/2),posy-l,posx,posy-l,turtle))
+    lista.extend(noescribir(posx,posy-l,posx+w,posy,turtle))
 
-    turtle.pendown()
+    print 'B'
+    return lista
 
-    turtle.goto(posx,posy) #linea | de abajo a arriba
+def C(pt,posx,posy,turtle):
+    lamb=0.80
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    r=pt/2
+    lista=[]
 
-    circle(jdhflksjg,kfhsdl)
-    for i in range(360):
-            turtle.goto()#falta terminar esto
+    lista.extend(noescribir(posx,posy,posx+r+(1.41)*r,posy-r+(2**(0.5))*r,turtle))#va a la pos inicial
+    lista.extend(circulo(posx+(8*r/5),posy-(r/5),53,254,r,turtle))#hace curva
+    lista.extend(noescribir(posx+(2.41421)*r,posy-(2.41421)*r,posx+w,posy,turtle))
 
-    turtle.goto(posx+w,posy)#este ultimo codigo debe estar al final de todas las funciones
+    print 'C'
+    return lista
+
+def D(pt,posx,posy,turtle):
+    lamb=0.75
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    r=pt/2
+    lista=[]
+
+    lista.extend(noescribir(posx,posy,posx,posy-l,turtle))#va a la base
+    lista.extend(linea(posx,posy-l,posx,posy,turtle))#sube
+    lista.extend(linea(posx,posy,posx+(r/2),posy,turtle))
+    lista.extend(circulo(posx+(r/2),posy,90,-180,r,turtle))#Hace curva
+    lista.extend(linea(posx+(r/2),posy-l,posx,posy-l,turtle))
+    lista.extend(noescribir(posx,posy-l,posx+w,posy,turtle))
+
+    print 'D'
+    return lista
 
 def E(pt,posx,posy,turtle):
     lamb=0.65
@@ -185,7 +222,7 @@ def E(pt,posx,posy,turtle):
     return lista
 
 def F(pt,posx,posy,turtle):
-    lamb=0.65
+    lamb=0.5
     turtle.penup()
     l=pt
     w=lamb*pt
@@ -198,6 +235,22 @@ def F(pt,posx,posy,turtle):
     lista.extend(linea(posx,posy-(l/2),posx+(w/2),posy-(l/2),turtle))#escribe el palo del medio -
     lista.extend(noescribir(posx+(w/2),posy-(l/2),posx+w,posy,turtle))#va a la posicion final
     print'F'
+    return lista
+
+def G(pt,posx,posy,turtle):
+    lamb=1
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    lista=[]
+    r=pt/2
+
+    lista.extend(noescribir(posx,posy,posx+r+(1.41)*r,posy-r+(2**(0.5))*r,turtle))#va a la pos inicial
+    lista.extend(circulo(posx+(8*r/5),posy-(r/5),53,307,r,turtle))#hace curva
+    lista.extend(linea(posx+w,posy-(l/2),posx+(w/2),posy-(l/2),turtle))#hace linea
+    lista.extend(noescribir(posx+w,posy-(l/2),posx+w,posy,turtle))
+
+    print 'G'
     return lista
 
 def H(pt,posx,posy,turtle):
@@ -226,6 +279,22 @@ def I(pt,posx,posy,turtle):
     lista.extend(linea(posx,posy,posx,posy-l,turtle)) #escribe el palo | de arriba abajo
     lista.extend(noescribir(posx,posy-l,posx+w,posy,turtle))#va a la posicion final
     print 'I'
+    return lista
+
+def J(pt,posx,posy,turtle):
+    lamb=0.5
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    lista=[]
+    r=w/2
+
+    lista.extend(noescribir(posx,posy-l,posx+w,posy,turtle))#va a la posicion inicial
+    lista.extend(linea(posx+w,posy,posx+w,posy-(3*l/4),turtle)) #escribe el palo | de arriba abajo
+    lista.extend(circulo(posx+w,posy-(3*l/4),0,-180,r,turtle))#hace curva
+    lista.extend(noescribir(posx,posy-(3*l/4),posx+w,posy,turtle))#va a la posicion final
+
+    print 'J'
     return lista
 
 def K(pt,posx,posy,turtle):
@@ -302,6 +371,78 @@ def O(pt,posx,posy,turtle):
     print 'O'
     return lista
 
+def P(pt,posx,posy,turtle):
+    lamb=0.5
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    r=pt/4
+    lista=[]
+
+    lista.extend(noescribir(posx,posy,posx,posy-l,turtle))#va a la base
+    lista.extend(linea(posx,posy-l,posx,posy,turtle))#sube
+    lista.extend(linea(posx,posy,posx+r,posy,turtle))#avanza un poquito
+    lista.extend(circulo(posx+r,posy,90,-180,r,turtle))#primer semicriculo
+    lista.extend(linea(posx+r,posy-2*r,posx,posy-2*r,turtle))#retrocede un poquito
+    lista.extend(noescribir(posx,posy-2*r,posx+w,posy,turtle))#va a posicion final
+
+    print 'P'
+    return lista
+
+def Q(pt,posx,posy,turtle):
+    lamb=1
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    r=l/2
+    lista=[]
+
+    lista.extend(noescribir(posx,posy,posx+(w/2),posy,turtle))#Se mueve al medio
+    lista.extend(circulo(posx+(w/2),posy,90,360,r,turtle))#hace circulo
+    lista.extend(noescribir(posx+(w/2),posy,posx+(w/2),posy-(l/2),turtle))#se va a la posicion del medio
+    lista.extend(linea(posx+(w/2),posy-(l/2),posx+w,posy-l,turtle))
+    lista.extend(noescribir(posx+w,posy-l,posx+w,posy,turtle))#va a posicion final
+
+    print 'Q'
+    return lista
+
+def R(pt,posx,posy,turtle):
+    lamb=0.5
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    r=pt/4
+    lista=[]
+
+    lista.extend(noescribir(posx,posy,posx,posy-l,turtle))#va a la base
+    lista.extend(linea(posx,posy-l,posx,posy,turtle))#sube
+    lista.extend(linea(posx,posy,posx+r,posy,turtle))#avanza un poquito
+    lista.extend(circulo(posx+r,posy,90,-180,r,turtle))#primer semicriculo
+    lista.extend(linea(posx+r,posy-2*r,posx,posy-2*r,turtle))#retrocede un poquito
+    lista.extend(linea(posx,posy-2*r,posx+w,posy-l,turtle))#hace raya \
+    lista.extend(noescribir(posx+w,posy-l,posx+w,posy,turtle))#va a posicion final
+
+    print 'R'
+    return lista
+
+def S(pt,posx,posy,turtle):
+    lamb=0.5
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    r=pt/4
+    lista=[]
+
+    lista.extend(noescribir(posx,posy,posx+w,posy,turtle))#va a la pos inicial
+    lista.extend(linea(posx+w,posy,posx+(w/2),posy,turtle))#retocede un poquito
+    lista.extend(circulo(posx+(w/2),posy,90,180,r,turtle))#primer semicriculo
+    lista.extend(circulo(posx+(w/2),posy-(l/2),90,-180,r,turtle))#segundo semicirculo
+    lista.extend(linea(posx+(w/2),posy-l,posx,posy-l,turtle))
+    lista.extend(noescribir(posx,posy-l,posx+w,posy,turtle))
+
+    print 'S'
+    return lista
+
 def T(pt,posx,posy,turtle):
     lamb=0.65
     turtle.penup()
@@ -314,6 +455,23 @@ def T(pt,posx,posy,turtle):
     lista.extend(noescribir(posx+(w/2),posy-l,posx,posy,turtle))#se mueve arriba
     lista.extend(linea(posx,posy,posx+w,posy,turtle)) #escribe el palo - de arriba
     print 'T'
+    return lista
+
+def U(pt,posx,posy,turtle):
+    lamb=0.5
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    lista=[]
+    r=w/2
+
+    lista.extend(noescribir(posx,posy-l,posx+w,posy,turtle))#va a la posicion inicial
+    lista.extend(linea(posx+w,posy,posx+w,posy-(3*l/4),turtle)) #escribe el palo | de arriba abajo
+    lista.extend(circulo(posx+w,posy-(3*l/4),0,-180,r,turtle))#hace curva
+    lista.extend(linea(posx,posy-(3*l/4),posx,posy,turtle))#hace otra linea
+    lista.extend(noescribir(posx,posy,posx+w,posy,turtle))#va a la posicion final
+
+    print 'U'
     return lista
 
 def V(pt,posx,posy,turtle):
