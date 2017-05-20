@@ -43,6 +43,24 @@ def circulo(xinicial,yinicial,angi,angsum,r,turtle):
 
     return lista
 
+def error(pt,posx,posy,turtle):
+    lamb=0.65
+    turtle.penup()
+    l=pt
+    w=lamb*pt
+    lista=[]
+
+    lista.extend(linea(posx,posy,posx,posy-l,turtle))
+    lista.extend(linea(posx,posy-l,posx+w,posy-l,turtle))#Hace palo de abajo _
+    lista.extend(noescribir(posx+w,posy-l,posx,posy,turtle))#regresa arriba
+    lista.extend(linea(posx,posy,posx+w,posy,turtle))#hace el palito de arriba -
+    lista.extend(noescribir(posx+w,posy,posx,posy-(l/2),turtle))#se va a la mitad
+    lista.extend(linea(posx,posy-(l/2),posx+w,posy-(l/2),turtle))#escribe el palito del medio -
+    lista.extend(noescribir(posx+w,posy-(l/2),posx+w,posy,turtle))#
+
+    print 'error'
+    return lista
+
 def space(pt,posx,posy,turtle):
     lamb=0.5
     turtle.penup()

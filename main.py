@@ -17,9 +17,11 @@ f=open("/Users/rafaella/Documents/Interfaz VLI/probando.txt","r")
 #guardar en s el string de todo el file
 s=f.read()
 
-pt=40
+pt=30
 posx= -250
-posy= 300
+posy= 200
+margenIzq= 250
+margenInf=- 200
 out=[]
 
 #def sim():
@@ -29,13 +31,36 @@ for count in range(len(s)):
         x='space'
     elif x=='\n':
         x='backslash'
-    out.extend(eval(x)(pt,posx,posy,turtle)) #esta es la funcion que llama a la libreria
-    out.extend(noescribir(turtle.xcor(),turtle.ycor(),turtle.xcor()+0.2*pt,turtle.ycor(),turtle))
 
-    posx=turtle.xcor()
-    posy=turtle.ycor()
+    if posx<margenIzq:
+
+        try:
+            out.extend(eval(x)(pt,posx,posy,turtle)) #esta es la funcion que llama a la libreria
+        except:
+            print 'Algo ha salido mal'
+            out.extend(error(pt,posx,posy,turtle))#cuando la el caracter no pertenece a la libreria
+
+
+        out.extend(noescribir(turtle.xcor(),turtle.ycor(),turtle.xcor()+0.2*pt,turtle.ycor(),turtle))#especio entre letra y letra
+        posx=turtle.xcor()
+        posy=turtle.ycor()
+
+    elif posx>=margenIzq:
+        out.extend(backslash(pt,posx,posy,turtle))#siguiente linea si se llego al maximo de la pagina
+        out.extend(noescribir(turtle.xcor(),turtle.ycor(),turtle.xcor()+0.2*pt,turtle.ycor(),turtle))#espacio entre l y l
+        posx=turtle.xcor()
+        posy=turtle.ycor()
+        out.extend(eval(x)(pt,posx,posy,turtle))
+        out.extend(noescribir(turtle.xcor(),turtle.ycor(),turtle.xcor()+0.2*pt,turtle.ycor(),turtle))#especio entre letra y letra
+        posx=turtle.xcor()
+        posy=turtle.ycor()
+
+    elif posy<margenInf:
+        print 'Se llego al maximo de la pagina'
+        break
 
 print out
+print len(out)
 #sim()
 
 #def esc():
