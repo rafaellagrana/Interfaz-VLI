@@ -18,11 +18,21 @@ f=open("/Users/rafaella/Documents/Interfaz VLI/probando.txt","r")
 s=f.read()
 
 pt=30
-posx= -250
-posy= 200
-margenIzq= 250
-margenInf=- 200
+posx= -50
+posy= 100
+margenIzq= 300
+margenInf=- 250
 out=[]
+
+turtle.penup()
+turtle.goto(-margenIzq,-margenInf)
+turtle.pendown()
+turtle.goto(margenIzq,-margenInf)
+turtle.goto(margenIzq,margenInf)
+turtle.goto(-margenIzq,margenInf)
+turtle.goto(-margenIzq,-margenInf)
+turtle.penup()
+
 
 #def sim():
 for count in range(len(s)):
@@ -61,6 +71,10 @@ for count in range(len(s)):
 
 print out
 print len(out)
+
+canvas=turtle.getscreen()
+canvas.getcanvas().postscript(file="duck.eps")
+
 #sim()
 
 #def esc():
